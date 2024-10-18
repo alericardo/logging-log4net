@@ -21,6 +21,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Web;
 
 namespace log4net.Util;
 
@@ -456,13 +457,18 @@ public sealed class LogLog
   {
     try
     {
-      Console.Out.WriteLine(message);
-      Trace.WriteLine(message);
+      string messageSanitized = Sanitize(message);
+      Console.Out.WriteLine(messageSanitized);
+      Trace.WriteLine(messageSanitized);
     }
     catch
     {
       // Ignore exception, what else can we do? Not really a good idea to propagate back to the caller
     }
+  }
+
+  private static string Sanitize(String message) {
+    return string.IsNullOrEmpty(message) ? string.Empty : HttpUtility.HtmlEncode(message);
   }
 
   /// <summary>
@@ -485,8 +491,9 @@ public sealed class LogLog
   {
     try
     {
-      Console.Error.WriteLine(message);
-      Trace.WriteLine(message);
+      string messageSanitized = Sanitize(message);
+      Console.Error.WriteLine(messageSanitized);
+      Trace.WriteLine(messageSanitized);
     }
     catch
     {

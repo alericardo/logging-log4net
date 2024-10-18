@@ -16,7 +16,8 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+build/Debug/
+build/artifacts/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -248,3 +249,4 @@ dotnetfx35.exe
 /src/Binaries/*
 
 local-tasks/*.generated.js
+.DS_Store
